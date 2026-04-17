@@ -1,0 +1,130 @@
+Wordlists simples (para laboratório)
+
+Use listas pequenas e controladas só para estudo:
+
+👤 Usuários (exemplo)
+admin
+root
+user
+test
+guest
+msfadmin
+service
+backup
+🔐 Senhas (exemplo)
+123456
+password
+admin
+admin123
+12345678
+qwerty
+letmein
+msfadmin
+
+💡 Em laboratório, isso já é suficiente pra demonstrar:
+
+fraqueza de senha
+repetição de credenciais
+impacto de políticas ruins
+⚙️ 2. Ferramentas e comandos (visão geral)
+
+Vou te mostrar o que é usado e para que serve, sem transformar isso num guia de ataque.
+
+📡 FTP (conceito de teste de credenciais)
+
+Ferramentas comuns:
+
+hydra
+medusa
+ncrack
+
+Exemplo de sintaxe típica (genérica):
+
+hydra -L usuarios.txt -P senhas.txt ftp://IP
+
+📌 O que isso faz:
+
+testa combinações de user/senha
+identifica credenciais válidas
+🌐 Formulário web (DVWA)
+
+Ferramentas comuns:
+
+burpsuite
+wfuzz
+ffuf
+
+Fluxo lógico:
+
+Interceptar requisição HTTP
+Identificar parâmetros (username, password)
+Automatizar variações
+
+Exemplo conceitual:
+
+ffuf -X POST -d "user=FUZZ&pass=123" -w usuarios.txt URL
+🖥️ SMB (enumeração + spraying)
+
+Ferramentas comuns:
+
+enum4linux
+crackmapexec
+smbclient
+
+Exemplo conceitual:
+
+crackmapexec smb IP -u usuarios.txt -p 'Senha123'
+
+📌 Ideia:
+
+testa uma senha em vários usuários (spraying)
+identifica contas válidas
+✅ 3. Validação de acessos (muito importante)
+
+Depois de encontrar credenciais, sempre validar:
+
+FTP
+ftp IP
+
+→ tentar login manual
+
+Web
+login direto no sistema
+verificar sessão/cookies
+checar permissões
+SMB
+smbclient -L //IP -U usuario
+
+📌 O que observar:
+
+acesso a arquivos
+permissões
+escalada possível
+🛡️ 4. Recomendações de mitigação (parte mais importante)
+
+Aqui está o que realmente diferencia um profissional:
+
+🔐 Senhas e autenticação
+mínimo 12 caracteres
+complexidade real (não só regra fraca)
+MFA obrigatório
+🚫 Proteção contra brute force
+rate limiting
+bloqueio por tentativas
+delay progressivo
+🌐 Web (DVWA-like)
+CAPTCHA
+mensagens genéricas (“credenciais inválidas”)
+proteção contra automação (WAF)
+🖥️ SMB / rede
+desativar SMBv1
+limitar acesso por IP
+monitorar eventos:
+login falho (Windows Event ID 4625)
+login sucesso (4624)
+📊 Monitoramento
+SIEM (ex: Splunk, ELK)
+alertas de:
+múltiplas tentativas
+logins em massa
+padrões anômalos
