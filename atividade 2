@@ -1,0 +1,79 @@
+Força bruta em FTP — como funciona (conceito)
+
+Ideia central:
+Testar várias combinações de usuário/senha até encontrar uma válida.
+
+Fluxo lógico:
+
+Descobrir que o FTP está ativo (ex: porta 21)
+Identificar usuários válidos (enumeração)
+Testar credenciais repetidamente
+
+Problema de segurança:
+
+Serviços sem limite de tentativas
+Senhas fracas
+Logs não monitorados
+🛡️ Como defender FTP
+🔐 Desativar FTP (preferir SFTP)
+🚫 Limitar tentativas de login
+🧱 Usar firewall (bloqueio por IP)
+🔍 Monitorar logs (/var/log/auth.log)
+🧠 Usar senhas fortes e MFA
+🌐 2. Automação de tentativas em formulário web (ex: DVWA)
+
+Ideia central:
+Simular múltiplos logins em formulários web (login, admin, etc).
+
+Como funciona por baixo:
+
+Envio repetido de requisições HTTP POST
+Manipulação de parâmetros (user, password)
+Uso de cookies/sessão
+
+Vulnerabilidades comuns:
+
+Sem CAPTCHA
+Sem rate limit
+Mensagens diferentes (user inválido vs senha inválida)
+🛡️ Como defender aplicações web
+⏱️ Rate limiting (ex: 5 tentativas/minuto)
+🤖 CAPTCHA
+🔒 Bloqueio temporário de conta
+🔍 Logs e alertas (SIEM)
+🔑 MFA obrigatório
+🧪 Testes com OWASP Top 10
+🖥️ 3. Password spraying em SMB + enumeração de usuários
+
+Diferença importante:
+
+❌ Força bruta → muitas senhas em um usuário
+✔️ Spraying → uma senha comum em vários usuários
+
+Por que isso funciona?
+
+Evita bloqueio de conta
+Explora senhas fracas tipo:
+123456
+Empresa@123
+🧠 Enumeração de usuários (conceito)
+
+Antes do ataque, o atacante tenta descobrir:
+
+nomes de usuários válidos
+contas ativas
+
+Fontes comuns:
+
+serviços SMB/LDAP
+mensagens de erro
+vazamentos
+🛡️ Como defender SMB / rede
+🔐 Política de senha forte
+🚫 Desabilitar SMBv1
+🔄 Lockout inteligente (com cuidado)
+🧠 MFA (principalmente VPN/AD)
+📊 Monitoramento de logins (eventos Windows)
+🔎 Ferramentas como:
+SIEM
+EDR
